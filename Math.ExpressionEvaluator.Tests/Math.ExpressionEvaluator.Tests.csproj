@@ -53,6 +53,7 @@
     <Compile Include="DivOperatorTests.cs" />
     <Compile Include="EvaluatorTests.cs" />
     <Compile Include="MulOperatorTests.cs" />
+    <Compile Include="OperandFactoryTests.cs" />
     <Compile Include="OperandTests.cs" />
     <Compile Include="OperatorFactoryTests.cs" />
     <Compile Include="ParserTests.cs" />

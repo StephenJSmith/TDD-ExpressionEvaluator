@@ -10,8 +10,8 @@ namespace Math.ExpressionEvaluator.Tests
         {
             // Arrange
             var sut =  new DivOperator();
-            var operandLeft = new Operand("20");
-            var operandRight = new Operand("10");
+            var operandLeft = new Operand(20);
+            var operandRight = new Operand(10);
             var expected = 2;
 
             // Act

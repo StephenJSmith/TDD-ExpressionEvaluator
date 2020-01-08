@@ -12,7 +12,9 @@ namespace Math.ExpressionEvaluator
                 throw new Exception();
             }
 
-            var parser = new Parser();
+            var parser = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
 
             var elements = parser.Parse(expression).ToList();
             if (elements.Count == 3)

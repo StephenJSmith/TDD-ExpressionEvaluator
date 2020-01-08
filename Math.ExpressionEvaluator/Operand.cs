@@ -4,9 +4,9 @@
     {
         public int Value { get; private set; }
 
-        public Operand(string operand)
+        public Operand(int value)
         {
-            Value = int.Parse(operand);
+            Value = value;
         }
     }
 }

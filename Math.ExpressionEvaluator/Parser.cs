@@ -4,9 +4,19 @@ namespace Math.ExpressionEvaluator
 {
     public class Parser
     {
+        private readonly OperatorFactory operatorFactory;
+        private readonly OperandFactory operandFactory;
+
+        public Parser(
+            OperatorFactory operatorFactory,
+            OperandFactory operandFactory)
+        {
+            this.operatorFactory = operatorFactory;
+            this.operandFactory = operandFactory;
+        }
+
         public IEnumerable<Element> Parse(string expression)
         {
-            var operatorFactory = new OperatorFactory();
             var operand = "";
             foreach (var currentChar in expression)
             {
@@ -16,7 +26,7 @@ namespace Math.ExpressionEvaluator
                 }
                 else
                 {
-                    yield return new Operand(operand);
+                    yield return new Operand(int.Parse(operand));
 
                     operand = "";
                     yield return operatorFactory.Create(currentChar);
@@ -25,7 +35,7 @@ namespace Math.ExpressionEvaluator
 
             if (operand != "")
             {
-                yield return new Operand(operand);
+                yield return new Operand(int.Parse(operand));
             }
         }
     }

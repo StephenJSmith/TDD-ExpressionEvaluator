@@ -10,7 +10,9 @@ namespace Math.ExpressionEvaluator.Tests
         public void Parse_ReturnsAdditionElements()
         {
             // Arrange
-            var sut = new Parser();
+            var sut = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
             var expected = 3;
             var expression = "1+2";
 

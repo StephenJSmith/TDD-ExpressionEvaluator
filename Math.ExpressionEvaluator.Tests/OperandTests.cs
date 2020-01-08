@@ -10,7 +10,7 @@ namespace Math.ExpressionEvaluator.Tests
         {
             // Arrange
             var expected = 123;
-            var expression = "123";
+            var expression = 123;
             
             // Act
             var sut = new Operand(expression);

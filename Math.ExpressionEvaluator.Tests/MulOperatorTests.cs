@@ -9,8 +9,8 @@ namespace Math.ExpressionEvaluator.Tests
         public void MulOperator_ReturnsProduct()
         {
             // Arrange
-            var leftOperand = new Operand("10");
-            var rightOperand = new Operand("25");
+            var leftOperand = new Operand(10);
+            var rightOperand = new Operand(25);
             var expected = 250;
             var sut = new MulOperator();
 

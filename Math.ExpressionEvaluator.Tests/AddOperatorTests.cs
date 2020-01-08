@@ -9,8 +9,8 @@ namespace Math.ExpressionEvaluator.Tests
         public void AdditionOperator_ReturnsSum()
         {
             // Arrange
-            var operand1 = new Operand("10");
-            var operand2 = new Operand("20");
+            var operand1 = new Operand(10);
+            var operand2 = new Operand(20);
             var expected = 30;
 
             // Act

@@ -9,8 +9,8 @@ namespace Math.ExpressionEvaluator.Tests
         public void SubtractionOperator_ReturnsDifference()
         {
             // Arrange
-            var operand1 = new Operand("20");
-            var operand2 = new Operand("7");
+            var operand1 = new Operand(20);
+            var operand2 = new Operand(7);
             var expected = 13;
 
             // Act
