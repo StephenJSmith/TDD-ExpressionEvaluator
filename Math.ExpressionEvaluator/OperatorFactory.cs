@@ -17,6 +17,9 @@ namespace Math.ExpressionEvaluator
                 case '*':
                     return (Operator) new MulOperator();
 
+                case '/':
+                    return (Operator) new DivOperator();
+
                 default:
                     var msg = $"Unkown operator [{operatorChar}]";
                     throw new Exception(msg);

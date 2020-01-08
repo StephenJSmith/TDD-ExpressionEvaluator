@@ -6,32 +6,24 @@ namespace Math.ExpressionEvaluator.Tests
     [TestClass]
     public class OperatorFactoryTests
     {
+        private OperatorFactory sut;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            sut = new OperatorFactory();
+        }
+
         [TestMethod]
         public void PlusSign_ReturnsAddOperator()
         {
-            // Arrange
-            var operatorChar = '+';
-            var sut = new OperatorFactory();
-
-            // Act
-            var result = sut.Create(operatorChar);
-
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(AddOperator));
+            AssertType('+', typeof(AddOperator));
         }
 
         [TestMethod]
         public void MinusSign_ReturnsSubOperator()
         {
-            // Arrange
-            var operatorChar = '-';
-            var sut = new OperatorFactory();
-
-            // Act
-            var result = sut.Create(operatorChar);
-
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(SubOperator));
+            AssertType('-', typeof(SubOperator));
         }
 
         [TestMethod]
@@ -40,7 +32,6 @@ namespace Math.ExpressionEvaluator.Tests
         {
             // Arrange
             var unknownOperator = 'x';
-            var sut = new OperatorFactory();
 
             // Act
             var result = sut.Create(unknownOperator);
@@ -52,15 +43,22 @@ namespace Math.ExpressionEvaluator.Tests
         [TestMethod]
         public void AsteriskSign_ReturnsMulOperator()
         {
-            // Arrange
-            var operatorChar = '*';
-            var sut = new OperatorFactory();
+            AssertType('*', typeof(MulOperator));
+        }
 
+        [TestMethod]
+        public void ForwardSlashSign_ReturnsDivOperator()
+        {
+            AssertType('/', typeof(DivOperator));
+        }
+
+        private void AssertType(char op, Type expected)
+        {
             // Act
-            var result = sut.Create(operatorChar);
+            var actual = sut.Create(op);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(MulOperator));
+            Assert.IsInstanceOfType(actual, expected);
         }
     }
 }
