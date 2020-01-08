@@ -44,6 +44,7 @@
     <Compile Include="AddOperator.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Evaluator.cs" />
+    <Compile Include="MulOperator.cs" />
     <Compile Include="Operand.cs" />
     <Compile Include="Operator.cs" />
     <Compile Include="OperatorFactory.cs" />

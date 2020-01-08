@@ -48,5 +48,19 @@ namespace Math.ExpressionEvaluator.Tests
             // Assert
             Assert.Fail("Should have thrown an exception");
         }
+
+        [TestMethod]
+        public void AsteriskSign_ReturnsMulOperator()
+        {
+            // Arrange
+            var operatorChar = '*';
+            var sut = new OperatorFactory();
+
+            // Act
+            var result = sut.Create(operatorChar);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(MulOperator));
+        }
     }
 }

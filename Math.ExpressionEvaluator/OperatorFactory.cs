@@ -12,10 +12,14 @@ namespace Math.ExpressionEvaluator
                     return (Operator) new AddOperator();
 
                 case '-':
-                    return (Operator)new SubOperator();
+                    return (Operator) new SubOperator();
+
+                case '*':
+                    return (Operator) new MulOperator();
 
                 default:
-                    throw new Exception();
+                    var msg = $"Unkown operator [{operatorChar}]";
+                    throw new Exception(msg);
             }
         }
     }

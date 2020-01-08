@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Math.ExpressionEvaluator.Tests
@@ -61,6 +60,18 @@ namespace Math.ExpressionEvaluator.Tests
         public void SubtractTwoNumbers_ReturnsDifference()
         {
             AssertAreEqual("88-20", 68);
+        }
+
+        [TestMethod]
+        public void MultiplyTwoIntegerNumbers_ReturnsProduct()
+        {
+            AssertAreEqual("12*30", 360);
+        }
+
+        [TestMethod]
+        public void DivideTwoIntegers_ReturnsQuotient()
+        {
+            AssertAreEqual("30/5", 6);
         }
     }
 }
