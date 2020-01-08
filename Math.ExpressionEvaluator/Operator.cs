@@ -1,29 +1,7 @@
-﻿using System;
-
-namespace Math.ExpressionEvaluator
+﻿namespace Math.ExpressionEvaluator
 {
-    public class Operator : Element
+    public abstract class Operator : Element
     {
-        private readonly char value;
-
-        public Operator(char operatorChar)
-        {
-            value = operatorChar;
-        }
-
-        public int Compute(Operand left, Operand right)
-        {
-            switch (value)
-            {
-                case '+':
-                    return left.Value + right.Value;
-
-                case '-':
-                    return left.Value - right.Value;
-
-                default:
-                    throw new Exception();
-            }
-        }
+        public abstract int Compute(Operand left, Operand right);
     }
 }

@@ -2,8 +2,9 @@
 {
     public class SubOperator : Operator
     {
-        public SubOperator() : base('-')
+        public override int Compute(Operand left, Operand right)
         {
+            return left.Value - right.Value;
         }
     }
 }

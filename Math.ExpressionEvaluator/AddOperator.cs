@@ -2,8 +2,12 @@
 {
     public class AddOperator : Operator
     {
-        public AddOperator() : base('+')
+        public AddOperator()
+        {}
+        
+        public override int Compute(Operand left, Operand right)
         {
+            return left.Value + right.Value;
         }
     }
 }
