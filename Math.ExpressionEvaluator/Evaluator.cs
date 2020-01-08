@@ -18,8 +18,8 @@ namespace Math.ExpressionEvaluator
             if (elements.Count == 3)
             {
                 var op = elements[1] as Operator;
-                var left = int.Parse(elements[0].Value);
-                var right = int.Parse(elements[2].Value);
+                var left = elements[0] as Operand;
+                var right = elements[2] as Operand;
 
                 return op.Compute(left, right);
             }

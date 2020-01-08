@@ -41,12 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddOperator.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Evaluator.cs" />
     <Compile Include="Operand.cs" />
     <Compile Include="Operator.cs" />
+    <Compile Include="OperatorFactory.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubOperator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

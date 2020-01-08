@@ -7,32 +7,17 @@ namespace Math.ExpressionEvaluator.Tests
     public class OperatorTests
     {
         [TestMethod]
-        public void Constructor_setsValueProperty()
-        {
-            // Arrange
-            var expected = "+";
-            var expression = '+';
-
-            // Act
-            var sut = new Operator(expression);
-            var actual = sut.Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
         public void AdditionOperator_ReturnsSum()
         {
             // Arrange
             var operatorChar = '+';
-            var addend1 = 10;
-            var addend2 = 20;
+            var operand1 = new Operand("10");
+            var operand2 = new Operand("20");
             var expected = 30;
 
             // Act
             var sut = new Operator(operatorChar);
-            var actual = sut.Compute(addend1, addend2);
+            var actual = sut.Compute(operand1, operand2);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -43,13 +28,13 @@ namespace Math.ExpressionEvaluator.Tests
         {
             // Arrange
             var operatorChar = '-';
-            var minuend = 20;
-            var subtrahend = 7;
+            var operand1 = new Operand("20");
+            var operand2 = new Operand("7");
             var expected = 13;
 
             // Act
             var sut = new Operator(operatorChar);
-            var actual = sut.Compute(minuend, subtrahend);
+            var actual = sut.Compute(operand1, operand2);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -61,12 +46,12 @@ namespace Math.ExpressionEvaluator.Tests
         {
             // Arrange
             var operatorChar = 'x';
-            var left = 0;
-            var right = 0;
+            var operand1 = new Operand("0");
+            var operand2 = new Operand("0");
 
             // Act
             var sut = new Operator(operatorChar);
-            sut.Compute(left, right);
+            sut.Compute(operand1, operand2);
 
             // Assert
             Assert.Fail("Should have thrown an exception");

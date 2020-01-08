@@ -6,6 +6,7 @@ namespace Math.ExpressionEvaluator
     {
         public IEnumerable<Element> Parse(string expression)
         {
+            var operatorFactory = new OperatorFactory();
             var operand = "";
             foreach (var currentChar in expression)
             {
@@ -18,7 +19,7 @@ namespace Math.ExpressionEvaluator
                     yield return new Operand(operand);
 
                     operand = "";
-                    yield return new Operator(currentChar);
+                    yield return operatorFactory.Create(currentChar);
                 }
             }
 

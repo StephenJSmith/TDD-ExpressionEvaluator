@@ -4,20 +4,22 @@ namespace Math.ExpressionEvaluator
 {
     public class Operator : Element
     {
+        private readonly char value;
+
         public Operator(char operatorChar)
         {
-            Value = operatorChar.ToString();
+            value = operatorChar;
         }
 
-        public int Compute(int left, int right)
+        public int Compute(Operand left, Operand right)
         {
-            switch (Value)
+            switch (value)
             {
-                case "+":
-                    return left + right;
+                case '+':
+                    return left.Value + right.Value;
 
-                case "-":
-                    return left - right;
+                case '-':
+                    return left.Value - right.Value;
 
                 default:
                     throw new Exception();

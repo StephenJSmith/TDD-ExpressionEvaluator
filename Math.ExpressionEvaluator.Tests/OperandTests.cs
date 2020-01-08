@@ -9,7 +9,7 @@ namespace Math.ExpressionEvaluator.Tests
         public void Constructor_SetsValueProperty()
         {
             // Arrange
-            var expected = "123";
+            var expected = 123;
             var expression = "123";
             
             // Act
