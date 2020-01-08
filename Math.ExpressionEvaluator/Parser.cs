@@ -5,11 +5,11 @@ namespace Math.ExpressionEvaluator
     public class Parser
     {
         private readonly OperatorFactory operatorFactory;
-        private readonly OperandFactory operandFactory;
+        private readonly IOperandFactory operandFactory;
 
         public Parser(
             OperatorFactory operatorFactory,
-            OperandFactory operandFactory)
+            IOperandFactory operandFactory)
         {
             this.operatorFactory = operatorFactory;
             this.operandFactory = operandFactory;
@@ -26,7 +26,7 @@ namespace Math.ExpressionEvaluator
                 }
                 else
                 {
-                    yield return new Operand(int.Parse(operand));
+                    yield return operandFactory.Create(int.Parse(operand));
 
                     operand = "";
                     yield return operatorFactory.Create(currentChar);
@@ -35,7 +35,7 @@ namespace Math.ExpressionEvaluator
 
             if (operand != "")
             {
-                yield return new Operand(int.Parse(operand));
+                yield return operandFactory.Create(int.Parse(operand));
             }
         }
     }

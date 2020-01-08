@@ -45,6 +45,7 @@
     <Compile Include="DivOperator.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Evaluator.cs" />
+    <Compile Include="IOperandFactory.cs" />
     <Compile Include="MulOperator.cs" />
     <Compile Include="Operand.cs" />
     <Compile Include="OperandFactory.cs" />

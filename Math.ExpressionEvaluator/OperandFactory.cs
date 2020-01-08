@@ -1,6 +1,6 @@
 ﻿namespace Math.ExpressionEvaluator
 {
-    public class OperandFactory
+    public class OperandFactory : IOperandFactory
     {
         public Operand Create(int value)
         {

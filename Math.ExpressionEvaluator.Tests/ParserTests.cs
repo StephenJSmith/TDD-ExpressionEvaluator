@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Math.ExpressionEvaluator.Tests
 {
@@ -24,6 +25,24 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.IsInstanceOfType(result[0], typeof(Operand));
             Assert.IsInstanceOfType(result[1], typeof(Operator));
             Assert.IsInstanceOfType(result[2], typeof(Operand));
+        }
+
+        [TestMethod]
+        public void Parse_CallsOperandFactoryCreate()
+        {
+            // Arrange
+            var operandFactory = new Mock<IOperandFactory>();
+            operandFactory
+                .Setup(it => it.Create(It.IsAny<int>()))
+                .Verifiable();
+            var sut = new Parser(new OperatorFactory(),
+                operandFactory.Object);
+
+            // Act
+            sut.Parse("1").ToList();
+
+            // Assert
+            operandFactory.Verify();
         }
     }
 }
