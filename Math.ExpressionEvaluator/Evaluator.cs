@@ -23,35 +23,30 @@ namespace Math.ExpressionEvaluator
             var elements = parser.Parse(expression).ToList();
             while (elements.Count > 1)
             {
-                var tupleIndex = FindOperation(elements);
-                var newElement = Compute(
-                    elements[tupleIndex],
-                    elements[tupleIndex + 1],
-                    elements[tupleIndex + 2]);
-                ReplaceOperation(elements, tupleIndex, newElement);
+                var tuple = FindOperation(elements);
+                var newElement = tuple.Item2.Compute();
+                ReplaceOperation(elements, tuple.Item1, newElement);
             }
 
             return (elements[0] as Operand).Value;
         }
 
-        private static int FindOperation(List<Element> elements)
+        private static Tuple<int, Operation> FindOperation(List<Element> elements)
         {
             for (var i = 0; i < elements.Count; i++)
             {
                 if (elements[i] is Operator)
                 {
-                    return i - 1;
+                    var operation = new Operation(
+                        elements[i - 1] as Operand,
+                        elements[i] as Operator,
+                        elements[i + 1] as Operand);
+
+                    return new Tuple<int, Operation>(i - 1, operation);
                 }
             }
 
-            return 0;
-        }
-
-        private static Operand Compute(Element lOperand, Element op, Element rOperand)
-        {
-            return new Operand((op as Operator).Compute(
-                lOperand as Operand, 
-                rOperand as Operand));
+            return null;
         }
 
         private static void ReplaceOperation(IList<Element> elements,
