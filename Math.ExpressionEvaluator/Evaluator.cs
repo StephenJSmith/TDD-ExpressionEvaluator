@@ -5,16 +5,19 @@ namespace Math.ExpressionEvaluator
 {
     public class Evaluator
     {
+        private readonly Parser parser;
+
+        public Evaluator(Parser parser)
+        {
+            this.parser = parser;
+        }
+
         public int Eval(string expression)
         {
             if (string.IsNullOrWhiteSpace(expression))
             {
                 throw new Exception();
             }
-
-            var parser = new Parser(
-                new OperatorFactory(),
-                new OperandFactory());
 
             var elements = parser.Parse(expression).ToList();
             if (elements.Count == 3)

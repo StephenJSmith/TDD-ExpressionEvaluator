@@ -9,7 +9,10 @@ namespace Math.ExpressionEvaluator.Tests
         private static void AssertAreEqual(string expression, int expected)
         {
             // Arrange
-            var sut = new Evaluator();
+            var parser = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
+            var sut = new Evaluator(parser);
 
             // Act
             var actual = sut.Eval(expression);
@@ -23,7 +26,10 @@ namespace Math.ExpressionEvaluator.Tests
         public void NullOrEmptyString_ThrowsException()
         {
             // Arrange
-            var sut = new Evaluator();
+            var parser = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
+            var sut = new Evaluator(parser);
 
             // Act
             sut.Eval("");
