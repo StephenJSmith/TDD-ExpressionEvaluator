@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Math.ExpressionEvaluator
@@ -20,16 +21,46 @@ namespace Math.ExpressionEvaluator
             }
 
             var elements = parser.Parse(expression).ToList();
-            if (elements.Count == 3)
+            while (elements.Count > 1)
             {
-                var op = elements[1] as Operator;
-                var left = elements[0] as Operand;
-                var right = elements[2] as Operand;
-
-                return op.Compute(left, right);
+                var tupleIndex = FindOperation(elements);
+                var newElement = Compute(
+                    elements[tupleIndex],
+                    elements[tupleIndex + 1],
+                    elements[tupleIndex + 2]);
+                ReplaceOperation(elements, tupleIndex, newElement);
             }
 
-            return int.Parse(expression);
+            return (elements[0] as Operand).Value;
+        }
+
+        private static int FindOperation(List<Element> elements)
+        {
+            for (var i = 0; i < elements.Count; i++)
+            {
+                if (elements[i] is Operator)
+                {
+                    return i - 1;
+                }
+            }
+
+            return 0;
+        }
+
+        private static Operand Compute(Element lOperand, Element op, Element rOperand)
+        {
+            return new Operand((op as Operator).Compute(
+                lOperand as Operand, 
+                rOperand as Operand));
+        }
+
+        private static void ReplaceOperation(IList<Element> elements,
+            int index, Operand operand)
+        {
+            elements.RemoveAt(index + 2);
+            elements.RemoveAt(index + 1);
+            elements.RemoveAt(index);
+            elements.Insert(index, operand);
         }
     }
 }

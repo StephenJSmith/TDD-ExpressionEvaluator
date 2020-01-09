@@ -44,5 +44,29 @@ namespace Math.ExpressionEvaluator.Tests
             // Assert
             operandFactory.Verify();
         }
+
+        [TestMethod]
+        public void ParseMultipleOperandAndOperators()
+        {
+            // Arrange
+            var sut = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
+            var expression = "1+2*3-4";
+            var expectedCount = 7;
+
+            // Act
+            var result = sut.Parse(expression).ToList();
+
+            // Assert
+            Assert.AreEqual(expectedCount, result.Count);
+            Assert.IsInstanceOfType(result[0], typeof(Operand));
+            Assert.IsInstanceOfType(result[1], typeof(Operator));
+            Assert.IsInstanceOfType(result[2], typeof(Operand));
+            Assert.IsInstanceOfType(result[3], typeof(Operator));
+            Assert.IsInstanceOfType(result[4], typeof(Operand));
+            Assert.IsInstanceOfType(result[5], typeof(Operator));
+            Assert.IsInstanceOfType(result[6], typeof(Operand));
+        }
     }
 }
