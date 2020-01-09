@@ -20,15 +20,17 @@ namespace Math.ExpressionEvaluator
                 throw new Exception();
             }
 
-            var elements = parser.Parse(expression).ToList();
-            while (elements.Count > 1)
+            var elementsArg = parser.Parse(expression);
+            var elements = new ElementList(elementsArg);
+            var operation = elements.FindOperation();
+            while (operation != null)
             {
-                var tuple = FindOperation(elements);
-                var newElement = tuple.Item2.Compute();
-                ReplaceOperation(elements, tuple.Item1, newElement);
+                var newElement = operation.Compute();
+                elements.ReplaceOperation(operation, newElement);
+                operation = elements.FindOperation();
             }
 
-            return (elements[0] as Operand).Value;
+            return elements.First.Value;
         }
 
         private static Tuple<int, Operation> FindOperation(List<Element> elements)

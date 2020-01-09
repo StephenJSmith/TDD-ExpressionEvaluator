@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="AddOperatorTests.cs" />
     <Compile Include="DivOperatorTests.cs" />
+    <Compile Include="ElementListTests.cs" />
     <Compile Include="EvaluatorTests.cs" />
     <Compile Include="MulOperatorTests.cs" />
     <Compile Include="OperandFactoryTests.cs" />
