@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -11,14 +12,11 @@ namespace Math.ExpressionEvaluator.Tests
         public void Parse_ReturnsAdditionElements()
         {
             // Arrange
-            var sut = new Parser(
-                new OperatorFactory(),
-                new OperandFactory());
             var expected = 3;
             var expression = "1+2";
 
             // Act
-            var result = sut.Parse(expression).ToList();
+            var result = Parse(expression);
 
             // Assert
             Assert.AreEqual(expected, result.Count);
@@ -49,14 +47,11 @@ namespace Math.ExpressionEvaluator.Tests
         public void ParseMultipleOperandAndOperators()
         {
             // Arrange
-            var sut = new Parser(
-                new OperatorFactory(),
-                new OperandFactory());
             var expression = "1+2*3-4";
             var expectedCount = 7;
 
             // Act
-            var result = sut.Parse(expression).ToList();
+            var result = Parse(expression);
 
             // Assert
             Assert.AreEqual(expectedCount, result.Count);
@@ -74,10 +69,9 @@ namespace Math.ExpressionEvaluator.Tests
         {
             // Arrange
             var expression = "-3";
-            var sut = CreateParser();
 
             // Act
-            var result = sut.Parse(expression).ToList();
+            var result = Parse(expression);
 
             // Assert
             Assert.AreEqual(2, result.Count);
@@ -91,10 +85,9 @@ namespace Math.ExpressionEvaluator.Tests
             // Arrange
             var expression = "(3)";
             var expectedValue = 3;
-            var sut = CreateParser();
 
             // Act
-            var result = sut.Parse(expression).ToList();
+            var result = Parse(expression);
 
             // Assert
             Assert.AreEqual(1, result.Count);
@@ -107,10 +100,9 @@ namespace Math.ExpressionEvaluator.Tests
             // Arrange
             var expression = "(1+2)";
             var expectedPrecedence = 11;
-            var sut = CreateParser();
 
             // Act
-            var result = sut.Parse(expression).ToList();
+            var result = Parse(expression);
 
             // Assert
             Assert.AreEqual(3, result.Count);
@@ -119,9 +111,11 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.AreEqual(2, ((Operand)result[2]).Value);
         }
 
-        private static Parser CreateParser()
+        private static List<Element> Parse(string expression)
         {
-            return new Parser(new OperatorFactory(), new OperandFactory());
+            var sut = new Parser(new OperatorFactory(), new OperandFactory());
+
+            return sut.Parse(expression).ToList();
         }
     }
 }
