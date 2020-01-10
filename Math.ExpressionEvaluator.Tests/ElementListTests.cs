@@ -170,5 +170,28 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.AreEqual(-1, sut.First.Value);
             Assert.IsNull(sut.FindOperation());
         }
+
+        [TestMethod]
+        public void FindOperationCanHandleTwoSuccessiveOperators()
+        {
+            // Arrange
+            var opd1 = new Operand(1);
+            var op1 = new AddOperator();
+            var op2 = new SubOperator(10);
+            var opd2 = new Operand(2);
+            var elements = new Element[]
+            {
+                opd1, op1, op2, opd2
+            };
+            var sut = new ElementList(elements);
+
+            // Act
+            var result = sut.FindOperation();
+
+            // Assert
+            Assert.AreEqual(0, result.LOperand.Value);
+            Assert.AreEqual(op2, result.Op);
+            Assert.AreEqual(opd2, result.ROperand);
+        }
     }
 }

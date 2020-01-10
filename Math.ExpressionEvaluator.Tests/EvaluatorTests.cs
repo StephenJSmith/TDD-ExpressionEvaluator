@@ -101,13 +101,26 @@ namespace Math.ExpressionEvaluator.Tests
         [TestMethod]
         public void ComplexExpression()
         {
-            AssertAreEqual("-2+3*(-5+8-9)/2", 11);
+            AssertAreEqual("-2+3*(-5+8-9)/2", -11);
         }
 
         [TestMethod]
         public void NegativeNumber()
         {
             AssertAreEqual("-3", -3);
+        }
+
+        [TestMethod]
+        public void NumberInParentheses_ReturnsNumber()
+        {
+            AssertAreEqual("(3)", 3);
+            ;
+        }
+
+        [TestMethod]
+        public void AddANegativeNumberInParentheses()
+        {
+            AssertAreEqual("2+(-3)", -1);
         }
     }
 }

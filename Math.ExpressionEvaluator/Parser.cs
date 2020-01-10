@@ -17,7 +17,10 @@ namespace Math.ExpressionEvaluator
 
         public IEnumerable<Element> Parse(string expression)
         {
+            const int BOOST = 10;
+            var precedenceBoost = 0;
             var operand = "";
+
             foreach (var currentChar in expression)
             {
                 if (char.IsDigit(currentChar))
@@ -32,7 +35,17 @@ namespace Math.ExpressionEvaluator
                     }
 
                     operand = "";
-                    yield return operatorFactory.Create(currentChar);
+                    if (currentChar == '(')
+                    {
+                        precedenceBoost += BOOST;
+                    } else if (currentChar == ')')
+                    {
+                        precedenceBoost -= BOOST;
+                    }
+                    else
+                    {
+                        yield return operatorFactory.Create(currentChar, precedenceBoost);
+                    }
                 }
             }
 

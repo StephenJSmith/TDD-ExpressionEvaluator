@@ -21,5 +21,19 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void TakesPrecedenceBoostIntoAccount()
+        {
+            // Arrange
+            var precedenceBoost = 7;
+            var expected = 8;
+            var sut = new SubOperator(precedenceBoost);
+
+            // Act
+            var actual = sut.Precedence;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

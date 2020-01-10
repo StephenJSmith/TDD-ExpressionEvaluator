@@ -2,9 +2,9 @@
 {
     public class DivOperator : Operator
     {
-        public DivOperator()
+        public DivOperator(int precedenceBoost = 0)
         {
-            Precedence = 2;
+            Precedence = 2 + precedenceBoost;
         }
 
         public override int Compute(Operand left, Operand right)

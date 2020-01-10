@@ -37,9 +37,9 @@ namespace Math.ExpressionEvaluator
 
         private Operand GetOperand(int index)
         {
-            return index < 0 || index >= elements.Count
-                ? new Operand(0)
-                : elements[index] as Operand;
+            return index >= 0 && index < elements.Count && elements[index] is Operand
+                ? elements[index] as Operand
+                : new Operand(0);
         }
 
         public void ReplaceOperation(Operation operation, Operand operand)

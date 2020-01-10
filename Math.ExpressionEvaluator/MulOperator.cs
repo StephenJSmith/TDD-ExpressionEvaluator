@@ -2,11 +2,11 @@
 {
     public class MulOperator : Operator
     {
-        public MulOperator()
+        public MulOperator(int precedenceBoost = 0)
         {
-            Precedence = 2;
+            Precedence = 2 + precedenceBoost;
         }
-        
+
         public override int Compute(Operand left, Operand right)
         {
             return left.Value * right.Value;

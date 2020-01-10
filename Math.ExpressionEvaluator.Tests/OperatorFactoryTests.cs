@@ -34,7 +34,7 @@ namespace Math.ExpressionEvaluator.Tests
             var unknownOperator = 'x';
 
             // Act
-            var result = sut.Create(unknownOperator);
+            var result = sut.Create(unknownOperator, 0);
 
             // Assert
             Assert.Fail("Should have thrown an exception");
@@ -55,7 +55,7 @@ namespace Math.ExpressionEvaluator.Tests
         private void AssertType(char op, Type expected)
         {
             // Act
-            var actual = sut.Create(op);
+            var actual = sut.Create(op, 0);
 
             // Assert
             Assert.IsInstanceOfType(actual, expected);

@@ -2,9 +2,9 @@
 {
     public class AddOperator : Operator
     {
-        public AddOperator()
+        public AddOperator(int precedenceBoost = 0)
         {
-            Precedence = 1;
+            Precedence = 1 + precedenceBoost;
         }
         
         public override int Compute(Operand left, Operand right)

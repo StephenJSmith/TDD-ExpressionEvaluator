@@ -3,9 +3,9 @@
     public class SubOperator : Operator
     {
 
-        public SubOperator()
+        public SubOperator(int precedenceBoost = 0)
         {
-            Precedence = 1;
+            Precedence = 1 + precedenceBoost;
         }
 
         public override int Compute(Operand left, Operand right)
