@@ -127,5 +127,48 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.AreEqual(op, result.Op);
             Assert.AreEqual(rOperand, result.ROperand);
         }
+
+        [TestMethod]
+        public void FindOperationCanHandleNegativeNumbers()
+        {
+            // Arrange
+            var op = new SubOperator();
+            var rOperand = new Operand(1);
+            var elements = new Element[]
+            {
+                op, rOperand
+            };
+            var sut = new ElementList(elements);
+
+            // Act
+            var result = sut.FindOperation();
+
+            // Assert
+            Assert.AreEqual(0, result.LOperand.Value);
+            Assert.AreEqual(op, result.Op);
+            Assert.AreEqual(rOperand, result.ROperand);
+        }
+
+        [TestMethod]
+        public void ReplaceOperationCanHandleNegativeNumbers()
+        {
+            // Arrange
+            var op = new SubOperator();
+            var rOperand = new Operand(1);
+            var newOperand = new Operand(-1);
+            var elements = new Element[]
+            {
+                op, rOperand
+            };
+            var sut = new ElementList(elements);
+            var operation = sut.FindOperation();
+
+            // Act
+            sut.ReplaceOperation(operation, newOperand);
+
+            // Assert
+            Assert.AreEqual(-1, sut.First.Value);
+            Assert.IsNull(sut.FindOperation());
+        }
     }
 }

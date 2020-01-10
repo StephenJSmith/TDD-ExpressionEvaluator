@@ -26,7 +26,10 @@ namespace Math.ExpressionEvaluator
                 }
                 else
                 {
-                    yield return operandFactory.Create(int.Parse(operand));
+                    if (operand!="")
+                    {
+                        yield return operandFactory.Create(int.Parse(operand));
+                    }
 
                     operand = "";
                     yield return operatorFactory.Create(currentChar);

@@ -68,5 +68,21 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.IsInstanceOfType(result[5], typeof(Operator));
             Assert.IsInstanceOfType(result[6], typeof(Operand));
         }
+
+        [TestMethod]
+        public void NegativeNumber()
+        {
+            // Arrange
+            var expression = "-3";
+            var sut = new Parser(new OperatorFactory(), new OperandFactory());
+
+            // Act
+            var result = sut.Parse(expression).ToList();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.IsInstanceOfType(result[0], typeof(SubOperator));
+            Assert.AreEqual(3, ((Operand)result[1]).Value);
+        }
     }
 }

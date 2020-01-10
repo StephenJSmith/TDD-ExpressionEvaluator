@@ -28,19 +28,34 @@ namespace Math.ExpressionEvaluator
             var firstOp = operators.First(op => op.Precedence == maxPrecedence);
             var index = elements.IndexOf(firstOp);
             var operation = new Operation(
-                elements[index - 1] as Operand,
+                GetOperand(index - 1),
                 elements[index] as Operator,
-                elements[index + 1] as Operand);
+                GetOperand(index + 1));
 
             return operation;
         }
 
+        private Operand GetOperand(int index)
+        {
+            return index < 0 || index >= elements.Count
+                ? new Operand(0)
+                : elements[index] as Operand;
+        }
+
         public void ReplaceOperation(Operation operation, Operand operand)
         {
-            var index = elements.IndexOf(operation.LOperand);
-            elements.RemoveAt(index + 2);
-            elements.RemoveAt(index + 1);
+            var index = elements.IndexOf(operation.Op);
+            if (GetOperand(index + 1) == operation.ROperand)
+            {
+                elements.RemoveAt(index + 1);
+            }
+
             elements[index] = operand;
+
+            if (GetOperand(index - 1) == operation.LOperand)
+            {
+                elements.RemoveAt(index - 1);
+            }
         }
     }
 }

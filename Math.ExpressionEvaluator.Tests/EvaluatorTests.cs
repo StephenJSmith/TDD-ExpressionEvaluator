@@ -97,5 +97,17 @@ namespace Math.ExpressionEvaluator.Tests
         {
             AssertAreEqual("2+3*5-8/2", 13);
         }
+
+        [TestMethod]
+        public void ComplexExpression()
+        {
+            AssertAreEqual("-2+3*(-5+8-9)/2", 11);
+        }
+
+        [TestMethod]
+        public void NegativeNumber()
+        {
+            AssertAreEqual("-3", -3);
+        }
     }
 }
