@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Math.ExpressionEvaluator
 {
@@ -18,21 +19,20 @@ namespace Math.ExpressionEvaluator
 
         public Operation FindOperation()
         {
+            var operators = elements
+                .Where(el => el is Operator)
+                .Cast<Operator>();
+            if (!operators.Any()) { return null; }
 
-            for (var i = 0; i < elements.Count; i++)
-            {
-                if (elements[i] is Operator)
-                {
-                    var operation = new Operation(
-                        elements[i - 1] as Operand,
-                        elements[i] as Operator,
-                        elements[i + 1] as Operand);
+            var maxPrecedence = operators.Max(op => op.Precedence);
+            var firstOp = operators.First(op => op.Precedence == maxPrecedence);
+            var index = elements.IndexOf(firstOp);
+            var operation = new Operation(
+                elements[index - 1] as Operand,
+                elements[index] as Operator,
+                elements[index + 1] as Operand);
 
-                    return operation;
-                }
-            }
-
-            return null;
+            return operation;
         }
 
         public void ReplaceOperation(Operation operation, Operand operand)

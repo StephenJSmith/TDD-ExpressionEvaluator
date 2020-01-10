@@ -70,6 +70,7 @@
     <Compile Include="OperandFactoryTests.cs" />
     <Compile Include="OperandTests.cs" />
     <Compile Include="OperatorFactoryTests.cs" />
+    <Compile Include="OperatorTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubOperatorTests.cs" />

@@ -86,6 +86,11 @@ namespace Math.ExpressionEvaluator.Tests
             AssertAreEqual("2*3-5", 1);
         }
 
+        [TestMethod]
+        public void TwoOperationsRespectingPrecedence()
+        {
+            AssertAreEqual("2+3*5", 17);
+        }
 
         [TestMethod]
         public void MultipleOperationsWithOrderOfPrecedence()

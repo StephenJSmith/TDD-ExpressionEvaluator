@@ -100,5 +100,32 @@ namespace Math.ExpressionEvaluator.Tests
             // Assert
             Assert.AreEqual(lOperand, result);
         }
+
+        [TestMethod]
+        public void FindOperation_ReturnsHighestPrecedence()
+        {
+            // Arrange
+            var lOperand = new Operand(0);
+            var op = new MulOperator();
+            var rOperand = new Operand(0);
+            var elements = new Element[]
+            {
+                new Operand(0),
+                new AddOperator(), 
+                new Operand(0),
+                lOperand,
+                op,
+                rOperand
+            };
+            var sut = new ElementList(elements);
+
+            // Act
+            var result = sut.FindOperation();
+
+            // Assert
+            Assert.AreEqual(lOperand, result.LOperand);
+            Assert.AreEqual(op, result.Op);
+            Assert.AreEqual(rOperand, result.ROperand);
+        }
     }
 }
