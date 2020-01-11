@@ -31,7 +31,7 @@ namespace Math.ExpressionEvaluator.Tests
             // Arrange
             var operandFactory = new Mock<IOperandFactory>();
             operandFactory
-                .Setup(it => it.Create(It.IsAny<int>()))
+                .Setup(it => it.Create(It.IsAny<double>()))
                 .Verifiable();
             var sut = new Parser(new OperatorFactory(),
                 operandFactory.Object);
@@ -111,6 +111,18 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.AreEqual(2, ((Operand)result[2]).Value);
         }
 
+        [TestMethod]
+        public void FloatingPointNumber()
+        {
+            // Arrange
+            var expression = "1.5";
+
+            // Act
+            var result = Parse(expression);
+
+            // Assert
+            Assert.AreEqual(1.5, ((Operand)result[0]).Value);
+        }
         private static List<Element> Parse(string expression)
         {
             var sut = new Parser(new OperatorFactory(), new OperandFactory());

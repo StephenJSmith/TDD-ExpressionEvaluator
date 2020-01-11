@@ -2,6 +2,6 @@
 {
     public interface IOperandFactory
     {
-        Operand Create(int value);
+        Operand Create(double value);
     }
 }

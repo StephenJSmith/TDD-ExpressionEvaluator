@@ -2,9 +2,9 @@
 {
     public class Operand : Element
     {
-        public int Value { get; private set; }
+        public double Value { get; private set; }
 
-        public Operand(int value)
+        public Operand(double value)
         {
             Value = value;
         }

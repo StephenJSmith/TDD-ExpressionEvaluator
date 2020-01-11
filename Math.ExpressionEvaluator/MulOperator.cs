@@ -7,7 +7,7 @@
             Precedence = 2 + precedenceBoost;
         }
 
-        public override int Compute(Operand left, Operand right)
+        public override double Compute(Operand left, Operand right)
         {
             return left.Value * right.Value;
         }

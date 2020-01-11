@@ -13,7 +13,7 @@ namespace Math.ExpressionEvaluator
             this.parser = parser;
         }
 
-        public int Eval(string expression)
+        public double Eval(string expression)
         {
             if (string.IsNullOrWhiteSpace(expression))
             {

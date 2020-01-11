@@ -4,6 +4,8 @@ namespace Math.ExpressionEvaluator
 {
     public class Parser
     {
+        private const char DecimalPoint = '.';
+
         private readonly OperatorFactory operatorFactory;
         private readonly IOperandFactory operandFactory;
 
@@ -23,7 +25,7 @@ namespace Math.ExpressionEvaluator
 
             foreach (var currentChar in expression)
             {
-                if (char.IsDigit(currentChar))
+                if (char.IsDigit(currentChar) || currentChar == DecimalPoint)
                 {
                     operand += currentChar;
                 }
@@ -31,27 +33,31 @@ namespace Math.ExpressionEvaluator
                 {
                     if (operand!="")
                     {
-                        yield return operandFactory.Create(int.Parse(operand));
+                        yield return operandFactory.Create(double.Parse(operand));
                     }
 
                     operand = "";
-                    if (currentChar == '(')
+
+                    switch (currentChar)
                     {
-                        precedenceBoost += BOOST;
-                    } else if (currentChar == ')')
-                    {
-                        precedenceBoost -= BOOST;
-                    }
-                    else
-                    {
-                        yield return operatorFactory.Create(currentChar, precedenceBoost);
+                        case '(':
+                            precedenceBoost += BOOST;
+                            break;
+
+                        case ')':
+                            precedenceBoost -= BOOST;
+                            break;
+
+                        default:
+                            yield return operatorFactory.Create(currentChar, precedenceBoost);
+                            break;
                     }
                 }
             }
 
             if (operand != "")
             {
-                yield return operandFactory.Create(int.Parse(operand));
+                yield return operandFactory.Create(double.Parse(operand));
             }
         }
     }

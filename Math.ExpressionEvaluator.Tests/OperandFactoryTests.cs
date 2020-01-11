@@ -9,11 +9,10 @@ namespace Math.ExpressionEvaluator.Tests
         public void Create_ReturnsOperand()
         {
             // Arrange
-            var sut = new OperandFactory();
             var value = 5;
 
             // Act
-            var result = sut.Create(value);
+            var result = GetOperand(value);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(Operand));
@@ -23,15 +22,35 @@ namespace Math.ExpressionEvaluator.Tests
         public void CreateWithValue_ReturnsOperandWithValue()
         {
             // Arrange
-            var sut = new OperandFactory();
             var value = 5;
             var expectedValue = 5;
 
             // Act
-            var result = sut.Create(value);
+            var result = GetOperand(value);
 
             // Assert
             Assert.AreEqual(expectedValue, result.Value);
+        }
+
+        [TestMethod]
+        public void Create_ReturnsOperandWithFloatingPointValue()
+        {
+            // Arrange
+            var value = 5.73;
+            var expectedValue = 5.73;
+
+            // Assert
+            var result = GetOperand(value);
+
+            // Assert
+            Assert.AreEqual(expectedValue, result.Value, 0.01);
+        }
+
+        private static Operand GetOperand(double value)
+        {
+            var sut = new OperandFactory();
+
+            return sut.Create(value);
         }
     }
 }

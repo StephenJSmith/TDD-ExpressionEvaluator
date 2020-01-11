@@ -6,21 +6,6 @@ namespace Math.ExpressionEvaluator.Tests
     [TestClass]
     public class EvaluatorTests
     {
-        private static void AssertAreEqual(string expression, int expected)
-        {
-            // Arrange
-            var parser = new Parser(
-                new OperatorFactory(),
-                new OperandFactory());
-            var sut = new Evaluator(parser);
-
-            // Act
-            var actual = sut.Eval(expression);
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void NullOrEmptyString_ThrowsException()
@@ -121,6 +106,49 @@ namespace Math.ExpressionEvaluator.Tests
         public void AddANegativeNumberInParentheses()
         {
             AssertAreEqual("2+(-3)", -1);
+        }
+
+        [TestMethod]
+        public void ComplexExpressionWithFloatingPointNumbers()
+        {
+            var expression = "1.2*6/(2.74-9.1*(-5.27)/(3+17.4*(9.15-1.225)))";
+            AssertAreEqual(expression, 2.33, 0.01);
+        }
+
+        [TestMethod]
+        public void FloatingPointNumber()
+        {
+            AssertAreEqual("1.5", 1.5);
+        }
+
+        private static void AssertAreEqual(string expression, double expected, double precision = 0.00001)
+        {
+            // Arrange
+            var parser = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
+            var sut = new Evaluator(parser);
+
+            // Act
+            var actual = sut.Eval(expression);
+
+            // Assert
+            Assert.AreEqual(expected, actual, precision);
+        }
+
+        private static void AssertAreEqualWithDelta(string expression, double expected, double precision = 0.0001)
+        {
+            // Arrange
+            var parser = new Parser(
+                new OperatorFactory(),
+                new OperandFactory());
+            var sut = new Evaluator(parser);
+
+            // Act
+            var actual = sut.Eval(expression);
+
+            // Assert
+            Assert.AreEqual(expected, actual, precision);
         }
     }
 }
