@@ -10,13 +10,16 @@ namespace Math.ExpressionEvaluator
 
         private readonly OperatorFactory operatorFactory;
         private readonly IOperandFactory operandFactory;
+        private readonly IDictionary<string, double> symbols;
 
         public Parser(
             OperatorFactory operatorFactory,
-            IOperandFactory operandFactory)
+            IOperandFactory operandFactory,
+            IDictionary<string, double> symbols = null)
         {
             this.operatorFactory = operatorFactory;
             this.operandFactory = operandFactory;
+            this.symbols = symbols;
         }
 
         public IEnumerable<Element> Parse(string expression)
@@ -27,7 +30,7 @@ namespace Math.ExpressionEvaluator
 
             foreach (var currentChar in expression.Where(c => !char.IsWhiteSpace(c)))
             {
-                if (char.IsDigit(currentChar) || currentChar == DecimalPoint)
+                if (char.IsLetterOrDigit(currentChar) || currentChar == DecimalPoint)
                 {
                     operand += currentChar;
                 }
@@ -35,7 +38,7 @@ namespace Math.ExpressionEvaluator
                 {
                     if (operand!="")
                     {
-                        yield return operandFactory.Create(double.Parse(operand));
+                        yield return operandFactory.Create(GetOperand(operand));
                     }
 
                     operand = "";
@@ -59,7 +62,7 @@ namespace Math.ExpressionEvaluator
 
             if (operand != "")
             {
-                yield return operandFactory.Create(double.Parse(operand));
+                yield return operandFactory.Create(GetOperand(operand));
             }
 
             if (precedenceBoost > 0)
@@ -71,6 +74,13 @@ namespace Math.ExpressionEvaluator
             {
                 throw new Exception("Too many closed parentheses");
             }
+        }
+
+        private double GetOperand(string operand)
+        {
+            return char.IsLetter(operand.First())
+                ? symbols[operand]
+                : double.Parse(operand);
         }
     }
 }

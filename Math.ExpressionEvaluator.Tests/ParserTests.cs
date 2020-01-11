@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -158,6 +159,21 @@ namespace Math.ExpressionEvaluator.Tests
             var result = Parse("1 + 2");
 
             Assert.AreEqual(3, result.Count);
+        }
+
+        [TestMethod]
+        public void SymbolicExpression()
+        {
+            // Arrange
+            var symbol = new Dictionary<string, double> {{"x", 10}};
+            var sut = new Parser(new OperatorFactory(), new OperandFactory(), symbol);
+
+            // Act
+            var result = sut.Parse("x").ToList();
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(10, ((Operand)result[0]).Value);
         }
 
         private static List<Element> Parse(string expression)

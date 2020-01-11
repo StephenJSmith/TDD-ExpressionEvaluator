@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Math.ExpressionEvaluator.Tests
@@ -121,27 +122,25 @@ namespace Math.ExpressionEvaluator.Tests
             AssertAreEqual("1.5", 1.5);
         }
 
-        private static void AssertAreEqual(string expression, double expected, double precision = 0.00001)
+        [TestMethod]
+        public void ExpressionWithSymbols()
         {
-            // Arrange
-            var parser = new Parser(
-                new OperatorFactory(),
-                new OperandFactory());
-            var sut = new Evaluator(parser);
-
-            // Act
-            var actual = sut.Eval(expression);
-
-            // Assert
-            Assert.AreEqual(expected, actual, precision);
+            var expression = "(x+3)/(y+5)";
+            AssertAreEqual(expression, 2, 0.01,
+            new Dictionary<string, double> {{"x", 7}, {"y",0}});
         }
 
-        private static void AssertAreEqualWithDelta(string expression, double expected, double precision = 0.0001)
+        private static void AssertAreEqual(
+            string expression, 
+            double expected, 
+            double precision = 0.00001,
+            IDictionary<string, double> symbols = null)
         {
             // Arrange
             var parser = new Parser(
                 new OperatorFactory(),
-                new OperandFactory());
+                new OperandFactory(),
+                symbols);
             var sut = new Evaluator(parser);
 
             // Act
