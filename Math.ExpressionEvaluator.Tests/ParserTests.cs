@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -123,6 +124,34 @@ namespace Math.ExpressionEvaluator.Tests
             // Assert
             Assert.AreEqual(1.5, ((Operand)result[0]).Value);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TooManyOpenParentheses()
+        {
+            Parse("(1");
+
+            Assert.Fail("Should have thrown an exception");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TooManyClosedParentheses()
+        {
+            Parse("1)");
+
+            Assert.Fail("Should have thrown an exception");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void DoubleDecimalPoint()
+        {
+            Parse("1.5.7");
+
+            Assert.Fail("Should have thrown an exception");
+        }
+
         private static List<Element> Parse(string expression)
         {
             var sut = new Parser(new OperatorFactory(), new OperandFactory());

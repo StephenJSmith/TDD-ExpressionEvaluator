@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Math.ExpressionEvaluator
 {
@@ -58,6 +59,16 @@ namespace Math.ExpressionEvaluator
             if (operand != "")
             {
                 yield return operandFactory.Create(double.Parse(operand));
+            }
+
+            if (precedenceBoost > 0)
+            {
+                throw new Exception("Too many open parentheses");
+            }
+
+            if (precedenceBoost < 0)
+            {
+                throw new Exception("Too many closed parentheses");
             }
         }
     }
