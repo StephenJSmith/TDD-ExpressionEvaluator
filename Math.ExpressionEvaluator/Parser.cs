@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Math.ExpressionEvaluator
 {
@@ -24,7 +25,7 @@ namespace Math.ExpressionEvaluator
             var precedenceBoost = 0;
             var operand = "";
 
-            foreach (var currentChar in expression)
+            foreach (var currentChar in expression.Where(c => !char.IsWhiteSpace(c)))
             {
                 if (char.IsDigit(currentChar) || currentChar == DecimalPoint)
                 {

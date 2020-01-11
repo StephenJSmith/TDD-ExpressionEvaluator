@@ -152,6 +152,14 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.Fail("Should have thrown an exception");
         }
 
+        [TestMethod]
+        public void ExpressionWithSpaces_ReturnsResult()
+        {
+            var result = Parse("1 + 2");
+
+            Assert.AreEqual(3, result.Count);
+        }
+
         private static List<Element> Parse(string expression)
         {
             var sut = new Parser(new OperatorFactory(), new OperandFactory());
